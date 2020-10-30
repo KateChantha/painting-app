@@ -13,7 +13,15 @@ const downloadBtn = document.getElementById('download');
 const { body } = document;
 
 // Global Variables
+/*
+ * Create a canvas
+ * https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage
+ */
+const canvas = document.createElement('canvas');
+canvas.id = 'canvas';
+const context = canvas.getContext('2d');
 
+/** this value is matching value in html **/
 let currentSize = 10;
 let bucketColor = '#FFFFFF';
 let currentColor = '#A51DAB';
