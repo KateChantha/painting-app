@@ -14,11 +14,12 @@ const { body } = document;
 
 // Global Variables
 /*
- * Create a canvas
+ * set up a canvas
  * https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage
  */
 const canvas = document.createElement('canvas');
 canvas.id = 'canvas';
+// call getContext and specify "2d" to get a CanvasRenderingContext2D interface
 const context = canvas.getContext('2d');
 
 /** this value is matching value in html **/
@@ -71,10 +72,15 @@ let currentColor = '#A51DAB';
 
 // Create Canvas
 function createCanvas() {
-  // canvas.width = ;
-  // canvas.height = ;
-  // context.fillStyle = ;
-  // context.fillRect();
+  // dynamicly set canvas dimension base on user current window W & H.
+  // get current width and heigth value
+  canvas.width = window.innerWidth;
+  // subtract tool bar H at the top
+  canvas.height = window.innerHeight - 50;
+  // background color of the canvas set to bucket color 
+  context.fillStyle = bucketColor;
+  // fill space with dynamic value of canvas w and H
+  context.fillRect(0,0, canvas.width, canvas.height);
   body.appendChild(canvas);
 
 }

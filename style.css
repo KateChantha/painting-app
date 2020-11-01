@@ -147,8 +147,8 @@ body {
 /* Canvas */
 canvas#canvas {
   /* background-color: rgb(177, 177, 177); */
-  background-color: rgb(182, 153, 153);
   position: absolute;
+  /* accountable space for the tool bar at the top */
   top: 50px;
   cursor: crosshair;
   z-index: 10;
