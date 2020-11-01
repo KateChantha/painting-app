@@ -38,14 +38,15 @@ let isEraser = false;
 // Function & Event Listener
 // ==========================
 // Formatting Brush Size
-// function displayBrushSize() {
-
-// }
+function displayBrushSize() {
+  brushSize.textContent = currentSize < 10 ? `0${currentSize}` : currentSize;
+}
 
 // Setting Brush Size
-// brushSlider.addEventListener('change', () => {
-
-// });
+brushSlider.addEventListener('change', () => {
+  currentSize = brushSlider.value;
+  displayBrushSize();
+});
 
 // Setting Brush Color
 brushColorTool.addEventListener('change', () => {
@@ -72,6 +73,8 @@ eraser.addEventListener('click', () => {
   // set current color and current brush size
   currentColor = bucketColor;
   currentSize = 50;
+  brushSlider.value = 50;
+  displayBrushSize();
 });
 
 // Switch back to Brush
@@ -84,6 +87,9 @@ function switchToBrush() {
   // switch back to brush color and brush size
   currentColor = `#${brushColorTool.value}`;
   currentSize = 10;
+  brushSlider.value = 10;
+  // update the brush size display
+  displayBrushSize();
 }
 
 // Event Listener: switchToBrush
@@ -101,7 +107,8 @@ function createCanvas() {
   // fill space with dynamic value of canvas w and H
   context.fillRect(0,0, canvas.width, canvas.height);
   body.appendChild(canvas);
-
+  // when page first loaded, set active tool to brush by default
+  switchToBrush();
 }
 
 // // Clear Canvas
