@@ -3,7 +3,7 @@ const brushColorBtn = document.getElementById('brush-color');
 const brushIcon = document.getElementById('brush');
 const brushSize = document.getElementById('brush-size');
 const brushSlider = document.getElementById('brush-slider');
-const bucketColorBtn = document.getElementById('bucket-color');
+const bucketColorTool = document.getElementById('bucket-color');
 const eraser = document.getElementById('eraser');
 const clearCanvasBtn = document.getElementById('clear-canvas');
 const saveStorageBtn = document.getElementById('save-storage');
@@ -46,9 +46,12 @@ let currentColor = '#A51DAB';
 // });
 
 // Setting Background Color
-// bucketColorBtn.addEventListener('change', () => {
-
-// });
+// event listener is going to trigger a fucntion
+bucketColorTool.addEventListener('change', () => {
+  bucketColor = `#${bucketColorTool.value}`;
+  // fill canvas with current bucket color
+  createCanvas();
+});
 
 // // Eraser
 // eraser.addEventListener('click', () => {
