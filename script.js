@@ -1,5 +1,5 @@
 const activeToolEl = document.getElementById('active-tool');
-const brushColorBtn = document.getElementById('brush-color');
+const brushColorTool = document.getElementById('brush-color');
 const brushIcon = document.getElementById('brush');
 const brushSize = document.getElementById('brush-size');
 const brushSlider = document.getElementById('brush-slider');
@@ -12,9 +12,9 @@ const clearStorageBtn = document.getElementById('clear-storage');
 const downloadBtn = document.getElementById('download');
 const { body } = document;
 
-// Global Variables
-/*
+/* =================
  * set up a canvas
+ * =================
  * https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage
  */
 const canvas = document.createElement('canvas');
@@ -22,14 +22,21 @@ canvas.id = 'canvas';
 // call getContext and specify "2d" to get a CanvasRenderingContext2D interface
 const context = canvas.getContext('2d');
 
-/** this value is matching value in html **/
+// =================
+// Global Variables
+// =================
+/** this value is matching initial value in html **/
 let currentSize = 10;
 let bucketColor = '#FFFFFF';
 let currentColor = '#A51DAB';
-// let isEraser = false;
+// keeping track whether using Brush or Eraser
+let isEraser = false;
 // let isMouseDown = false;
 // let drawnArray = [];
 
+// ==========================
+// Function & Event Listener
+// ==========================
 // Formatting Brush Size
 // function displayBrushSize() {
 
@@ -41,9 +48,10 @@ let currentColor = '#A51DAB';
 // });
 
 // Setting Brush Color
-// brushColorBtn.addEventListener('change', () => {
-
-// });
+brushColorTool.addEventListener('change', () => {
+  isEraser = false;
+  currentColor `#${brushColorTool.value}`
+});
 
 // Setting Background Color
 // event listener is going to trigger a fucntion
@@ -53,32 +61,40 @@ bucketColorTool.addEventListener('change', () => {
   createCanvas();
 });
 
-// // Eraser
-// eraser.addEventListener('click', () => {
+// Eraser
+// Eraser is going paint with bucketColor(background color)
+eraser.addEventListener('click', () => {
+  isEraser = true;
+  brushIcon.style.color = 'white';
+  // active tool is shown in black
+  eraser.style.color = 'black';
+  activeToolEl.textContent = 'Eraser';
+  // set current color and current brush size
+  currentColor = bucketColor;
+  currentSize = 50;
+});
 
-//   brushIcon.style.color = 'white';
-//   eraser.style.color = 'black';
-//   activeToolEl.textContent = 'Eraser';
+// Switch back to Brush
+function switchToBrush() {
+  isEraser = false;
+  activeToolEl.textContent = 'Brush';
+  // switch backroud active icon
+  brushIcon.style.color = 'black';
+  eraser.style.color = 'white';
+  // switch back to brush color and brush size
+  currentColor = `#${brushColorTool.value}`;
+  currentSize = 10;
+}
 
-// });
-
-// // Switch back to Brush
-// function switchToBrush() {
-//   isEraser = false;
-//   activeToolEl.textContent = 'Brush';
-//   brushIcon.style.color = 'black';
-//   eraser.style.color = 'white';
-//   currentColor = `#${brushColorBtn.value}`;
-//   currentSize = 10;
-
-// }
+// Event Listener: switchToBrush
+brushIcon.addEventListener('click', switchToBrush);
 
 // Create Canvas
 function createCanvas() {
   // dynamicly set canvas dimension base on user current window W & H.
   // get current width and heigth value
   canvas.width = window.innerWidth;
-  // subtract tool bar H at the top
+  // subtract tool bar H at the top(50px)
   canvas.height = window.innerHeight - 50;
   // background color of the canvas set to bucket color 
   context.fillStyle = bucketColor;
@@ -209,8 +225,7 @@ canvas.addEventListener('mouseup', () => {
 //   setTimeout(switchToBrush, 1500);
 // });
 
-// // Event Listener
-// brushIcon.addEventListener('click', switchToBrush);
-
+// ===========
 // On Load
+// ===========
 createCanvas();
