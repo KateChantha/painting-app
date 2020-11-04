@@ -31,8 +31,8 @@ let bucketColor = '#FFFFFF';
 let currentColor = '#A51DAB';
 // keeping track whether using Brush or Eraser
 let isEraser = false;
-// let isMouseDown = false;
-// let drawnArray = [];
+let isMouseDown = false;
+let drawnArray = [];
 
 // ==========================
 // Function & Event Listener
@@ -152,6 +152,7 @@ function createCanvas() {
 
 // Get Mouse Position
 function getMousePosition(event) {
+  // return x and y value where cursor is 
   const boundaries = canvas.getBoundingClientRect();
   return {
     x: event.clientX - boundaries.left,
@@ -159,7 +160,7 @@ function getMousePosition(event) {
   };
 }
 
-// Mouse Down
+// Mouse Down 
 canvas.addEventListener('mousedown', (event) => {
   isMouseDown = true;
   const currentPosition = getMousePosition(event);
