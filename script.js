@@ -51,7 +51,7 @@ brushSlider.addEventListener('change', () => {
 // Setting Brush Color
 brushColorTool.addEventListener('change', () => {
   isEraser = false;
-  currentColor `#${brushColorTool.value}`
+  currentColor =`#${brushColorTool.value}`;
 });
 
 // Setting Background Color
