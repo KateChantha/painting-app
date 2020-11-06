@@ -59,7 +59,10 @@ brushColorTool.addEventListener('change', () => {
 bucketColorTool.addEventListener('change', () => {
   bucketColor = `#${bucketColorTool.value}`;
   // fill canvas with current bucket color
+  // create canvas will wipe out everything
   createCanvas();
+  // restore existing drawing after setting a canvas background
+  restoreCanvas();
 });
 
 // Eraser
@@ -111,44 +114,49 @@ function createCanvas() {
   switchToBrush();
 }
 
-// // Clear Canvas
-// clearCanvasBtn.addEventListener('click', () => {
-//   createCanvas();
-//   drawnArray = [];
-//   // Active Tool
-//   activeToolEl.textContent = 'Canvas Cleared';
-//   setTimeout(switchToBrush, 1500);
-// });
+// Clear Canvas will get rid of all line drawing but not restting background color
+clearCanvasBtn.addEventListener('click', () => {
+  createCanvas();
+  // reset drawnArray
+  drawnArray = [];
+  // Active Tool
+  activeToolEl.textContent = 'Canvas Cleared';
+  setTimeout(switchToBrush, 1500);
+});
 
-// // Draw what is stored in DrawnArray
-// function restoreCanvas() {
-//   for (let i = 1; i < drawnArray.length; i++) {
-//     context.beginPath();
-//     context.moveTo(drawnArray[i - 1].x, drawnArray[i - 1].y);
-//     context.lineWidth = drawnArray[i].size;
-//     context.lineCap = 'round';
-//     if (drawnArray[i].eraser) {
-//       context.strokeStyle = bucketColor;
-//     } else {
-//       context.strokeStyle = drawnArray[i].color;
-//     }
-//     context.lineTo(drawnArray[i].x, drawnArray[i].y);
-//     context.stroke();
-//   }
-// }
+// Draw what is stored in DrawnArray
+function restoreCanvas() {
+  for (let i = 1; i < drawnArray.length; i++) {
+    context.beginPath();
+    context.moveTo(drawnArray[i - 1].x, drawnArray[i - 1].y);
+    context.lineWidth = drawnArray[i].size;
+    // 'round' setting per mouse down event
+    context.lineCap = 'round';
+    if (drawnArray[i].eraser) {
+      // if the value is eraser, then use bucketColor(bg color) as a storke
+      context.strokeStyle = bucketColor;
+    } else {
+      // therwise use the color value that store in drawnArray
+      context.strokeStyle = drawnArray[i].color;
+    }
+    // use lineto() and stroke() to redraw the line
+    context.lineTo(drawnArray[i].x, drawnArray[i].y);
+    context.stroke();
+  }
+}
 
-// // Store Drawn Lines in DrawnArray
-// function storeDrawn(x, y, size, color, erase) {
-//   const line = {
-//     x,
-//     y,
-//     size,
-//     color,
-//     erase,
-//   };
-//   console.log(line);
-//   drawnArray.push(line);
-// }
+// Store Drawn Lines in DrawnArray
+function storeDrawn(x, y, size, color, erase) {
+  const line = {
+    x,
+    y,
+    size,
+    color,
+    erase,
+  };
+  console.log(line);
+  drawnArray.push(line);
+}
 
 // ==========================
 // MOUSE EVENT
@@ -183,15 +191,17 @@ canvas.addEventListener('mousemove', (event) => {
     // console.log('mouse is moving', currentPosition);
     context.lineTo(currentPosition.x, currentPosition.y);
     context.stroke();
-  //   storeDrawn(
-  //     currentPosition.x,
-  //     currentPosition.y,
-  //     currentSize,
-  //     currentColor,
-  //     isEraser,
-  //   );
-  // } else {
-  //   storeDrawn(undefined);
+    // store value on mouse move(draw line)
+    storeDrawn(
+      currentPosition.x,
+      currentPosition.y,
+      currentSize,
+      currentColor,
+      isEraser,
+    );
+  } else {
+    // store undefined whenever mouse is moving between drawing or earsing somethig
+    storeDrawn(undefined);
   }
 });
 
