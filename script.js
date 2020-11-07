@@ -244,13 +244,16 @@ clearStorageBtn.addEventListener('click', () => {
   setTimeout(switchToBrush, 1500);
 });
 
-// // Download Image
-// downloadBtn.addEventListener('click', () => {
-
-//   // Active Tool
-//   activeToolEl.textContent = 'Image File Saved';
-//   setTimeout(switchToBrush, 1500);
-// });
+// Download Image
+downloadBtn.addEventListener('click', () => {
+  // target is an <a> tag
+  // set quality to max value (1)
+  downloadBtn.href = canvas.toDataURL('image/jpeg', 1);
+  downloadBtn.download = 'paint-image.jpeg'
+  // display messgge on Active Tool
+  activeToolEl.textContent = 'Image File Saved';
+  setTimeout(switchToBrush, 1500);
+});
 
 // ===========
 // On Load
