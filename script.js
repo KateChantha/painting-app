@@ -1,3 +1,4 @@
+const DISPLAY_TIME = 1500;
 const activeToolEl = document.getElementById('active-tool');
 const brushColorTool = document.getElementById('brush-color');
 const brushIcon = document.getElementById('brush');
@@ -95,6 +96,11 @@ function switchToBrush() {
   displayBrushSize();
 }
 
+// Dispaly time for a message 
+function brushTimeSetTimeOut(ms) {
+  setTimeout(switchToBrush, ms);
+}
+
 // Event Listener: switchToBrush
 brushIcon.addEventListener('click', switchToBrush);
 
@@ -121,7 +127,7 @@ clearCanvasBtn.addEventListener('click', () => {
   drawnArray = [];
   // Active Tool
   activeToolEl.textContent = 'Canvas Cleared';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSetTimeOut(DISPLAY_TIME);
 });
 
 // Draw what is stored in DrawnArray
@@ -216,7 +222,7 @@ saveStorageBtn.addEventListener('click', () => {
   localStorage.setItem('savedCanvas', JSON.stringify(drawnArray));
   // Active Tool
   activeToolEl.textContent = 'Canvas Saved';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSetTimeOut(DISPLAY_TIME);
 });
 
 // Load from Local Storage
@@ -228,10 +234,10 @@ loadStorageBtn.addEventListener('click', () => {
     restoreCanvas();
   // display messgge on Active Tool
     activeToolEl.textContent = 'Canvas Loaded';
-    setTimeout(switchToBrush, 1500);
+    brushTimeSetTimeOut(DISPLAY_TIME);
   } else {
     activeToolEl.textContent = 'No Canvas Found';
-    setTimeout(switchToBrush, 1500);
+    brushTimeSetTimeOut(DISPLAY_TIME);
   }
 
 });
@@ -241,7 +247,7 @@ clearStorageBtn.addEventListener('click', () => {
   localStorage.removeItem('savedCanvas');
   // display messgge on Active Tool
   activeToolEl.textContent = 'Local Storage Cleared';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSetTimeOut(DISPLAY_TIME);
 });
 
 // Download Image
@@ -252,7 +258,7 @@ downloadBtn.addEventListener('click', () => {
   downloadBtn.download = 'paint-image.jpeg'
   // display messgge on Active Tool
   activeToolEl.textContent = 'Image File Saved';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSetTimeOut(DISPLAY_TIME);
 });
 
 // ===========
