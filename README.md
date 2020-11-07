@@ -9,7 +9,7 @@
 
   ##### 1.4 [Canvas Rendering Context 2D](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D)
 
-  #####  1.5 [Canvas toDataURL](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toDataURL)
+  #####  1.5 [Canvas toDataURL](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toDataURL) to save casvas as image file 
 
 #### 2. Color Picker Plugin [jscolor](https://github.com/EastDesire/jscolor)
 
