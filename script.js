@@ -109,14 +109,15 @@ function brushTimeSetTimeOut(ms) {
   setTimeout(switchToBrush, ms);
 }
 
+//++++++++++++++++++++++
 // UNDO functionality // ++++++++++++
 undoBtn.addEventListener('click', () =>{  
   console.log('undo click!!!!!')
 
   createCanvas();
 
-  // undoBtn.disabled = false;
-  // redo.disabled = false;
+  undoBtn.disabled = false;
+  redo.disabled = false;
 
   //creat partial drawn array based on how many steps to back(skipping the undefined values)
   stepsIdentifier = [];
@@ -160,6 +161,54 @@ undoBtn.addEventListener('click', () =>{
   //   currentColor = colorSelector.value;
   // };   
 });
+
+//+++++++++++++++++++++++++++++++
+// Redo functionality
+redoBtn.addEventListener('click', () =>{
+  
+  console.log('REDO click!')
+  // undoBtn.disabled = false;
+  // eraser.disabled = false;
+
+  //creat partial drawn array based on how many steps to forward(skipping the undefined values)
+  stepsIdentifier = [];
+  if (partialDrawnArray.length === 0) {    
+    for (let i = 0; i < drawnArray.length; i++) {
+      if(drawnArray[i].color !== undefined ){
+        stepsIdentifier.push(drawnArray[i]);
+      }
+      if(stepsIdentifier.length === steps){
+        break;
+      }      
+    }
+  } else {
+    for (let i = partialDrawnArray.length -1; i < drawnArray.length ; i++) {
+      if(drawnArray[i].color !== undefined ){
+        stepsIdentifier.push(drawnArray[i]);
+      }
+      if(stepsIdentifier.length === steps){
+        break;
+      }
+    }  
+  };  
+
+  if(stepsIdentifier.length < steps){
+    partialDrawnArray = [...drawnArray];
+  } else {
+    let tillToUndo = drawnArray.indexOf(stepsIdentifier[stepsIdentifier.length - 1]);
+    partialDrawnArray = drawnArray.slice(0, tillToUndo);
+  }
+  
+  // Re-store canvas fro partial drawnArray
+  restoreCanvas(partialDrawnArray); 
+  
+  // bug?
+  // if(drawnArray.length === partialDrawnArray.length){
+  //   redoBtn.disabled = true;
+  // }
+     
+});
+
 
 // ==========================
 // Event Listener
@@ -305,7 +354,7 @@ canvas.addEventListener('mousemove', (event) => {
       );
     }
     undoBtn.disabled = false;
-    redoBtn.disabled = true;
+    redoBtn.disabled = true; // +++++ must 
     eraser.disabled = false; 
   //----
 
