@@ -6,6 +6,7 @@ const brushIcon = document.getElementById('brush');
 const brushSize = document.getElementById('brush-size');
 const brushSlider = document.getElementById('brush-slider');
 const bucketColorTool = document.getElementById('bucket-color');
+const bucketIcon = document.getElementById('bucket-icon');
 const eraser = document.getElementById('eraser');
 const clearCanvasBtn = document.getElementById('clear-canvas');
 const saveStorageBtn = document.getElementById('save-storage');
@@ -63,9 +64,13 @@ brushColorTool.addEventListener('change', () => {
   currentColor =`#${brushColorTool.value}`;
 });
 
-// Setting Background Color
+// Setting Buckbet/ Background Color
 // event listener is going to trigger a fucntion
 bucketColorTool.addEventListener('change', () => {
+  activeToolEl.textContent = 'Background Color';
+  bucketIcon.style.backgroundColor = 'darkturquoise';
+  brushIcon.style.backgroundColor = 'gainsboro';
+  eraser.style.backgroundColor = 'gainsboro'; 
   bucketColor = `#${bucketColorTool.value}`;
   // fill canvas with current bucket color
   // create canvas will wipe out everything
@@ -78,9 +83,9 @@ bucketColorTool.addEventListener('change', () => {
 // Eraser is going paint with bucketColor(background color)
 eraser.addEventListener('click', () => {
   isEraser = true;
-  brushIcon.style.color = 'white';
-  // active tool is shown in black
-  eraser.style.color = 'black';
+  brushIcon.style.backgroundColor = 'gainsboro'; //+++++
+  bucketIcon.style.backgroundColor = 'gainsboro';
+  eraser.style.backgroundColor = 'darkturquoise'; // +++++++++
   activeToolEl.textContent = 'Eraser';
   // set current color and current brush size
   currentColor = bucketColor;
@@ -94,8 +99,10 @@ function switchToBrush() {
   isEraser = false;
   activeToolEl.textContent = 'Brush';
   // switch backroud active icon
-  brushIcon.style.color = 'black';
-  eraser.style.color = 'white';
+  // brushIcon.style.color = 'black'; 
+  brushIcon.style.backgroundColor = 'darkturquoise'; // +++++++++++
+  eraser.style.backgroundColor = 'gainsboro';  // +++++++++++
+  bucketIcon.style.backgroundColor = 'gainsboro';
   // switch back to brush color and brush size
   currentColor = `#${brushColorTool.value}`;
   currentSize = 10;
@@ -200,14 +207,14 @@ function createCanvas() {
   // get current width and heigth value
   canvas.width = window.innerWidth;
   // subtract tool bar H at the top(50px)
-  canvas.height = window.innerHeight - 50;
+  canvas.height = window.innerHeight - 70;
   // background color of the canvas set to bucket color 
   context.fillStyle = bucketColor;
   // fill space with dynamic value of canvas w and H
   context.fillRect(0,0, canvas.width, canvas.height);
   body.appendChild(canvas);
   // when page first loaded, set active tool to brush by default
-  switchToBrush();
+  // switchToBrush(); // - - - 
 }
 
 // Clear Canvas will get rid of all line drawing but not restting background color
