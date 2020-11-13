@@ -12,8 +12,8 @@ const saveStorageBtn = document.getElementById('save-storage');
 const loadStorageBtn = document.getElementById('load-storage');
 const clearStorageBtn = document.getElementById('clear-storage');
 const downloadBtn = document.getElementById('download');
-const undoBtn = document.getElementById('undo'); // +++
-const redoBtn = document.getElementById('redo'); // +++
+const undoBtn = document.getElementById('undo'); 
+const redoBtn = document.getElementById('redo'); 
 
 
 /* =================
@@ -37,11 +37,11 @@ let currentColor = '#A51DAB';
 let isEraser = false;
 let isMouseDown = false;
 let drawnArray = [];
-let partialDrawnArray = []; // +++
-let steps = 10; // +++
-let stepsIdentifier = []; // +++
-// redoBtn.disabled = true; // +++
-// undoBtn.disabled = true; // +++
+let partialDrawnArray = [];  
+let steps = 10; 
+let stepsIdentifier = []; 
+// redoBtn.disabled = true; 
+// undoBtn.disabled = true; 
 
 // ==========================
 // Function 
@@ -109,13 +109,10 @@ function brushTimeSetTimeOut(ms) {
   setTimeout(switchToBrush, ms);
 }
 
-//++++++++++++++++++++++
-// UNDO functionality // ++++++++++++
+// UNDO functionality 
 undoBtn.addEventListener('click', () =>{  
-  console.log('undo click!!!!!')
-
+  
   createCanvas();
-
   undoBtn.disabled = false;
   redo.disabled = false;
 
@@ -149,27 +146,12 @@ undoBtn.addEventListener('click', () =>{
   }  
 
   // restore canvas with partial drawnArray 
-  restoreCanvas(partialDrawnArray);  
-
-  // if(partialDrawnArray.length === 0){
-  //   undoBtn.disabled = true;
-  //   eraser.disabled = true;
-  //   // canvas.style.cursor = `url('${curBrush}'), auto`;
-  //   // currentTool = 'brush';
-
-  //   isEraser = false;
-  //   currentColor = colorSelector.value;
-  // };   
+  restoreCanvas(partialDrawnArray);   
 });
 
-//+++++++++++++++++++++++++++++++
 // Redo functionality
 redoBtn.addEventListener('click', () =>{
   
-  console.log('REDO click!')
-  // undoBtn.disabled = false;
-  // eraser.disabled = false;
-
   //creat partial drawn array based on how many steps to forward(skipping the undefined values)
   stepsIdentifier = [];
   if (partialDrawnArray.length === 0) {    
@@ -201,12 +183,7 @@ redoBtn.addEventListener('click', () =>{
   
   // Re-store canvas fro partial drawnArray
   restoreCanvas(partialDrawnArray); 
-  
-  // bug?
-  // if(drawnArray.length === partialDrawnArray.length){
-  //   redoBtn.disabled = true;
-  // }
-     
+       
 });
 
 
@@ -243,7 +220,7 @@ clearCanvasBtn.addEventListener('click', () => {
   brushTimeSetTimeOut(DISPLAY_TIME);
 });
 
-// Draw what is stored in DrawnArray //+++++
+// Draw what is stored in DrawnArray 
 function restoreCanvas(arr) {
   for (let i = 1; i < arr.length; i++) {
     context.beginPath();
@@ -282,9 +259,6 @@ function storeDrawn(x, y, size, color, erase) {
     console.log(line);
     drawnArray.push(line);
   }
-
-  // console.log(line);
-  // drawnArray.push(line);
 }
 
 // ==========================
@@ -322,7 +296,6 @@ canvas.addEventListener('mousemove', (event) => {
     context.stroke();
     // store value on mouse move(draw line)
 
-  //++++++
     if(partialDrawnArray.length > 0){
       drawnArray = [...partialDrawnArray];       
       partialDrawnArray = [];  
@@ -354,9 +327,9 @@ canvas.addEventListener('mousemove', (event) => {
       );
     }
     undoBtn.disabled = false;
-    redoBtn.disabled = true; // +++++ must 
+    redoBtn.disabled = true; 
     eraser.disabled = false; 
-  //----
+  
 
   } else {
     // store undefined whenever mouse is moving between drawing or earsing somethig
