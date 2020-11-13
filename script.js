@@ -99,6 +99,7 @@ bucketColorTool.addEventListener('change', () => {
   createCanvas();
   // restore existing drawing after setting a canvas background
   restoreCanvas(drawnArray);
+  setTimeout(()=>switchToBrush(),1000)
 });
 
 // Eraser
