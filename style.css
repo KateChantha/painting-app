@@ -18,7 +18,7 @@ body {
   height: 70px;
   width: 100%;
   position: fixed;
-  background-color: grey;
+  background-color: rgb(48, 48, 48);
   display: flex;
   justify-content: center;
   /* align-items: center; */
@@ -46,6 +46,7 @@ button {
 button:focus { 
   outline: none; 
 }
+
 img {
   /* font-size: 10px; */
   /* position: relative; */
@@ -63,7 +64,18 @@ img {
 
 button img{
   vertical-align: middle;
- }
+}
+
+.bucket {
+background-color: rgb(94, 105, 108);
+height: 64px;
+width: 200px;
+}
+
+#bucket-icon {
+margin-left: 10px;
+}
+
 
 /* Font Awesome Icons */
 
@@ -91,10 +103,9 @@ button img{
   cursor: default;
 }
 
-
+#clear-canvas:hover,
 #clear-storage:hover {
-  background-color: rgb(242, 86, 14);
-  background-color: rgb(185, 245, 101);
+  background-color: rgb(245, 106, 41);
 }
 
 
@@ -105,17 +116,19 @@ button img{
 /* Tools */
 .active-tool {
   position: absolute;
-  top: 9px;
+  top: 16px;
   left: 5px;
 }
 
 .active-tool > span {
-  background-color: rgb(82, 82, 82);
+  background-color: darkturquoise;
   border-radius: 5px;
   padding: 2.5px 16px;
-  color: white;
-  font-size: 20px;
+  color: black;
+  font-size: 25px;
   user-select: none;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .tool {
@@ -131,7 +144,7 @@ button img{
   /* background-color: rgb(120, 185, 203); */
   background-color: rgb(94, 105, 108);
   height: 64px;
-  width: 400px;
+  width: 360px;
 }
 
 .brush > * {
