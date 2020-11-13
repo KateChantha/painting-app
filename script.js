@@ -80,11 +80,17 @@ brushColorTool.addEventListener('change', () => {
   currentColor =`#${brushColorTool.value}`;
 });
 
+bucketIcon.addEventListener('click', () => {
+  activeToolEl.textContent = 'Pick Background Color';
+  activeToolEl.style.backgroundColor = "darkOrange"
+})
+
 // Setting Buckbet/ Background Color
 // event listener is going to trigger a fucntion
 bucketColorTool.addEventListener('change', () => {
   activeToolEl.textContent = 'Background Color';
   bucketIcon.style.backgroundColor = 'darkturquoise';
+  activeToolEl.style.backgroundColor = "darkturquoise"
   brushIcon.style.backgroundColor = 'gainsboro';
   eraser.style.backgroundColor = 'gainsboro'; 
   bucketColor = `#${bucketColorTool.value}`;
@@ -99,9 +105,10 @@ bucketColorTool.addEventListener('change', () => {
 // Eraser is going paint with bucketColor(background color)
 eraser.addEventListener('click', () => {
   isEraser = true;
-  brushIcon.style.backgroundColor = 'gainsboro'; //+++++
+  brushIcon.style.backgroundColor = 'gainsboro'; 
   bucketIcon.style.backgroundColor = 'gainsboro';
-  eraser.style.backgroundColor = 'darkturquoise'; // +++++++++
+  eraser.style.backgroundColor = 'darkturquoise'; 
+  activeToolEl.style.backgroundColor = "darkturquoise"
   activeToolEl.textContent = 'Eraser';
   // set current color and current brush size
   currentColor = bucketColor;
@@ -115,9 +122,9 @@ function switchToBrush() {
   isEraser = false;
   activeToolEl.textContent = 'Brush';
   // switch backroud active icon
-  // brushIcon.style.color = 'black'; 
-  brushIcon.style.backgroundColor = 'darkturquoise'; // +++++++++++
-  eraser.style.backgroundColor = 'gainsboro';  // +++++++++++
+  brushIcon.style.backgroundColor = 'darkturquoise';
+  activeToolEl.style.backgroundColor = "darkturquoise" 
+  eraser.style.backgroundColor = 'gainsboro'; 
   bucketIcon.style.backgroundColor = 'gainsboro';
   // switch back to brush color and brush size
   currentColor = `#${brushColorTool.value}`;
@@ -138,7 +145,8 @@ undoBtn.addEventListener('click', () =>{
   createCanvas();
   undoBtn.disabled = false;
   redo.disabled = false;
-
+  activeToolEl.textContent = 'Undo';
+  brushTimeSetTimeOut(DISPLAY_TIME);
   //creat partial drawn array based on how many steps to back(skipping the undefined values)
   stepsIdentifier = [];
   if (partialDrawnArray.length === 0) {    
@@ -174,7 +182,8 @@ undoBtn.addEventListener('click', () =>{
 
 // Redo functionality
 redoBtn.addEventListener('click', () =>{
-  
+  activeToolEl.textContent = 'Redo';
+  brushTimeSetTimeOut(DISPLAY_TIME);
   //creat partial drawn array based on how many steps to forward(skipping the undefined values)
   stepsIdentifier = [];
   if (partialDrawnArray.length === 0) {    
