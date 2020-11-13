@@ -47,6 +47,22 @@ let stepsIdentifier = [];
 // ==========================
 // Function 
 // ==========================
+// Create Canvas
+function createCanvas() {
+  // dynamicly set canvas dimension base on user current window W & H.
+  // get current width and heigth value
+  canvas.width = window.innerWidth;
+  // subtract tool bar H at the top(50px)
+  canvas.height = window.innerHeight - 70;
+  // background color of the canvas set to bucket color 
+  context.fillStyle = bucketColor;
+  // fill space with dynamic value of canvas w and H
+  context.fillRect(0,0, canvas.width, canvas.height);
+  body.appendChild(canvas);
+  // when page first loaded, set active tool to brush by default
+  // switchToBrush(); // - - - 
+}
+
 // Formatting Brush Size
 function displayBrushSize() {
   brushSize.textContent = currentSize < 10 ? `0${currentSize}` : currentSize;
@@ -201,21 +217,6 @@ redoBtn.addEventListener('click', () =>{
 // Event Listener: switchToBrush
 brushIcon.addEventListener('click', switchToBrush);
 
-// Create Canvas
-function createCanvas() {
-  // dynamicly set canvas dimension base on user current window W & H.
-  // get current width and heigth value
-  canvas.width = window.innerWidth;
-  // subtract tool bar H at the top(50px)
-  canvas.height = window.innerHeight - 70;
-  // background color of the canvas set to bucket color 
-  context.fillStyle = bucketColor;
-  // fill space with dynamic value of canvas w and H
-  context.fillRect(0,0, canvas.width, canvas.height);
-  body.appendChild(canvas);
-  // when page first loaded, set active tool to brush by default
-  // switchToBrush(); // - - - 
-}
 
 // Clear Canvas will get rid of all line drawing but not restting background color
 clearCanvasBtn.addEventListener('click', () => {
